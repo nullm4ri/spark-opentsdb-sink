@@ -16,10 +16,14 @@
 package com.github.sps.metrics.opentsdb;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ning.http.client.AsyncCompletionHandler;
-import com.ning.http.client.AsyncHttpClient;
-import com.ning.http.client.AsyncHttpClientConfig;
-import com.ning.http.client.Response;
+
+import org.asynchttpclient.AsyncCompletionHandler;
+import org.asynchttpclient.AsyncHttpClient;
+import org.asynchttpclient.AsyncHttpClientConfig;
+import org.asynchttpclient.BoundRequestBuilder;
+import org.asynchttpclient.DefaultAsyncHttpClient;
+import org.asynchttpclient.DefaultAsyncHttpClientConfig;
+import org.asynchttpclient.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,7 +48,7 @@ public class OpenTsdb {
         return new Builder(baseUrl);
     }
 
-    private final AsyncHttpClient.BoundRequestBuilder requestBuilder;
+    private final BoundRequestBuilder requestBuilder;
     private int batchSizeLimit = DEFAULT_BATCH_SIZE_LIMIT;
 
     private ObjectMapper mapper = new ObjectMapper();
@@ -74,12 +78,11 @@ public class OpenTsdb {
     }
 
     private OpenTsdb(String baseURL, Integer connectionTimeout, Integer readTimeout) {
-
-        AsyncHttpClientConfig cf = new AsyncHttpClientConfig.Builder()
+        AsyncHttpClientConfig cf = new DefaultAsyncHttpClientConfig.Builder()
                 .setConnectTimeout(connectionTimeout)
                 .setReadTimeout(readTimeout)
                 .build();
-        AsyncHttpClient asyncHttpClient = new AsyncHttpClient(cf);
+        AsyncHttpClient asyncHttpClient = new DefaultAsyncHttpClient(cf);
 
         this.requestBuilder = asyncHttpClient.preparePost(baseURL + "/api/put");
     }

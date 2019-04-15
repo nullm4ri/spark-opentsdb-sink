@@ -1,4 +1,8 @@
 # spark-opentsdb-sink
 Sink implementation for reporting Spark metrics to OpenTSDB.
 
-Compatible with spark-core_2.10-1.4.1.
+This project is forked form [here](https://github.com/jetlore/spark-opentsdb-sink).
+
+## Dependencies
+* Scala 2.11.12
+* Apache Spark 2.4.0

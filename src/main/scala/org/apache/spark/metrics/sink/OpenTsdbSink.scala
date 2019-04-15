@@ -23,7 +23,8 @@ import java.util.concurrent.TimeUnit
 import com.codahale.metrics.MetricRegistry
 import com.github.sps.metrics.OpenTsdbReporter
 import com.github.sps.metrics.opentsdb.OpenTsdb
-import org.apache.spark.{Logging, SecurityManager}
+import org.apache.spark.internal.Logging
+import org.apache.spark.SecurityManager
 import org.apache.spark.metrics.MetricsSystem
 
 /**
