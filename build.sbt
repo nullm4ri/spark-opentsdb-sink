@@ -49,6 +49,7 @@ lazy val assemblySettings = Seq(
     case s: String if s.startsWith("META-INF/maven/org.codehaus.jettison") => MergeStrategy.filterDistinctLines
     case s: String if s.startsWith("META-INF/maven/org.slf4j") => MergeStrategy.filterDistinctLines
     case s: String if s.startsWith("META-INF/maven/ch.qos.logback") => MergeStrategy.filterDistinctLines
+    case PathList("META-INF", xs @ _*) => MergeStrategy.discard
     case x => (assemblyMergeStrategy in assembly).value(x)
   },
   assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = false)
