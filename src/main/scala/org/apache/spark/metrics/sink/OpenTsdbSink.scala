@@ -146,7 +146,8 @@ private[spark] class OpenTsdbSink(val property: Properties, val registry: Metric
 
   if (!registry.getNames.isEmpty) {
     // search strings like app-20160526104713-0016.0.xxx or app-20160526104713-0016.driver.xxx
-    val pattern = """(app-\d+-\d+)\.(\d+|driver)\..+""".r
+    val pattern = """(application_\d+_\d+)\.(\d+|driver)\..+""".r
+    println(s">>>>> ${registry.getNames.first}")
 
     registry.getNames.first match {
       case pattern(app, executor) =>
